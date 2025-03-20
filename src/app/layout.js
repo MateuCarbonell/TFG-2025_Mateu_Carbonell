@@ -1,17 +1,26 @@
-import "./styles/globals.css"; // Asegúrate de que esta importación sea correcta
-import { Roboto } from "next/font/google";
-
-// Usando la fuente Roboto
-const roboto = Roboto({ subsets: ["latin"] });
-
+// app/layout.js
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <head>
-        <meta charSet="UTF-8" />
-        <title>Alt Bookings</title>
-      </head>
-      <body className={roboto.className}>{children}</body>
+    <html lang="es">
+      <body>
+        <header>
+          <h1>Mi Aplicación Next.js</h1>
+          <nav>
+            <ul>
+              <li>
+                <a href="/">Inicio</a>
+              </li>
+              <li>
+                <a href="/login">Login</a>
+              </li>
+            </ul>
+          </nav>
+        </header>
+        <main>{children}</main>
+        <footer>
+          <p>© 2023 Mi Aplicación</p>
+        </footer>
+      </body>
     </html>
   );
 }
