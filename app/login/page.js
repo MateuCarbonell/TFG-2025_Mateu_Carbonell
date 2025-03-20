@@ -25,7 +25,7 @@ export default function LoginPage() {
       if (response.ok) {
         router.push("/services"); // Redirige a la página de servicios
       } else {
-        setMessage(data.message);
+        console.log(setMessage(data.message));
       }
     } catch (error) {
       setMessage("Error al conectar con el servidor");
