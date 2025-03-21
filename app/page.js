@@ -1,9 +1,13 @@
-// app/page.js
-export default function HomePage() {
+// src/app/page.js
+"use client"; // Asegúrate de usar esto en el archivo de cliente
+
+import { UserProvider } from "./context/UserContext"; // Importa el UserProvider
+
+export default function Page({ children }) {
   return (
-    <div>
-      <h1>Bienvenido a Mi Aplicación</h1>
-      <p>Esta es la página de inicio.</p>
-    </div>
+    <UserProvider>
+      {children}{" "}
+      {/* Esto envuelve todo el contenido de la página con el UserProvider */}
+    </UserProvider>
   );
 }

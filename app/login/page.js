@@ -1,13 +1,14 @@
-// app/login/page.js
 "use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
+  const [email, setEmail] = useState(""); // Estado para email
+  const [password, setPassword] = useState(""); // Estado para contraseña
+  const [name, setName] = useState(""); // Estado para nombre
+  const [userType, setUserType] = useState("cliente"); // Estado para tipo de usuario
+  const [message, setMessage] = useState(""); // Estado para mensaje
   const router = useRouter();
 
   const handleSubmit = async (event) => {
@@ -23,9 +24,13 @@ export default function LoginPage() {
       const data = await response.json();
 
       if (response.ok) {
-        router.push("/services"); // Redirige a la página de servicios
+        // Llamar a la función de login del contexto
+        // login(data.user); // Suponiendo que el backend devuelve los datos del usuario CON ESTO NO HACE LOGIN
+
+        // Redirigir al dashboard (unificado)
+        router.push("../dashboard");
       } else {
-        console.log(setMessage(data.message));
+        setMessage(data.error || "Invalid credentials");
       }
     } catch (error) {
       setMessage("Error al conectar con el servidor");
@@ -53,6 +58,25 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
+        </div>
+        <div>
+          <label>Nombre:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)} // Actualizar el estado de 'name'
+            required
+          />
+        </div>
+        <div>
+          <label>Tipo de usuario:</label>
+          <select
+            value={userType}
+            onChange={(e) => setUserType(e.target.value)} // Actualizar el estado de 'userType'
+          >
+            <option value="cliente">Usuario</option>
+            <option value="proveedor">Proveedor</option>
+          </select>
         </div>
         <button type="submit">Iniciar Sesión</button>
       </form>

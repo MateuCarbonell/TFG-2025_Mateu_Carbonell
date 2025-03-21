@@ -17,7 +17,7 @@ export async function POST(request) {
     }
 
     // Comprobar si el email ya está en uso
-    const existingUser = await prisma.usuario.findUnique({
+    const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
@@ -29,11 +29,11 @@ export async function POST(request) {
     }
 
     // Crear el nuevo usuario
-    const newUser = await prisma.usuario.create({
+    const newUser = await prisma.user.create({
       data: {
         name,
         email,
-        password, // Recuerda que podrías cifrar la contraseña
+        password,
         userType,
       },
     });

@@ -1,44 +1,28 @@
-// src/app/usuarios/page.js
-"use client"; // Directiva que marca este archivo como un componente del cliente
+"use client";
+
 import { useEffect, useState } from "react";
 
+// Componente para mostrar los usuarios
 export default function UsuariosPage() {
-  const [servicios, setServicios] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [users, setUsers] = useState([]);
 
+  // Obtener los datos de la API
   useEffect(() => {
-    const fetchServicios = async () => {
-      try {
-        const response = await fetch("/usuarios");
-        if (!response.ok) {
-          throw new Error("Error al obtener los servicios");
-        }
-        const data = await response.json();
-        setServicios(data);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+    async function fetchUsers() {
+      const response = await fetch("/api/usuarios");
+      const data = await response.json();
+      setUsers(data);
+    }
 
-    fetchServicios();
-  }, []);
-
-  if (loading) return <div>Cargando...</div>;
-  if (error) return <div>Error: {error}</div>;
+    fetchUsers();
+  }, []); // sin condicion el useEffect ya que solo se ejecuta una vez
 
   return (
     <div>
-      <h1>Servicios</h1>
+      <h2>Usuarios</h2>
       <ul>
-        {servicios.map((servicio) => (
-          <li key={servicio.id_servicio}>
-            <h3>{servicio.nombre_servicio}</h3>
-            <p>{servicio.descripcion}</p>
-            <p>Precio: {servicio.precio}</p>
-          </li>
+        {users.map((user) => (
+          <li key={user.id}>{user.name}</li>
         ))}
       </ul>
     </div>

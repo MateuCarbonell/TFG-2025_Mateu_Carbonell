@@ -1,4 +1,3 @@
-// app/services/layout.js
 export default function ServicesLayout({ children }) {
   return (
     <div>
